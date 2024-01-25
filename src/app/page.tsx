@@ -17,7 +17,7 @@ const perks = [
   {
     name: "For the Planet",
     Icon: Leaf,
-    description: "We've pe=ledged 1% of sales to the preservation and restoration of the natural environment."
+    description: "We've peledged 1% of sales to the preservation and restoration of the natural environment."
   },
 ]
 
