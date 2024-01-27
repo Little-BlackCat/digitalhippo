@@ -27,10 +27,11 @@ export default function SignUp() {
     resolver: zodResolver(AuthCredentialsValidator),
   })
 
-  const { data } = trpc.anyApiRoute.useQuery()
+  const { mutate, isLoading } = trpc.auth.createPayloadUser.useMutation({})
+    
 
   function onSubmit({ email, password }: TAuthCredentialsValidator) {
-    // send data to db
+    mutate({ email, password })
   }
 
   return (

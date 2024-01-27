@@ -1,10 +1,21 @@
 import dotenv from "dotenv";
 import path from "path";
 import type { InitOptions } from "payload/config";
-import payload from "payload";
+import payload, { Payload } from "payload";
+import nodemailer from "nodemailer";
 
 dotenv.config({
   path: path.resolve(__dirname, "../.env")
+})
+
+const transporter = nodemailer.createTransport({
+  host: 'smtp.resend.com',
+  secure: true,
+  port: 456,
+  auth: {
+    user: "resend",
+    pass: process.env.RESEND_API_KEY
+  }
 })
 
 let cached = (global as any).payload
@@ -19,7 +30,7 @@ interface Args {
   initOptions?: Partial<InitOptions>
 }
 
-export async function getPayloadClient({ initOptions }: Args = {}) {
+export async function getPayloadClient({ initOptions }: Args = {}): Promise<Payload> {
   if(!process.env.PAYLOAD_SECRET) throw new Error("PAYLOAD_SECRET is missing.")
 
   if(cached.client) {
